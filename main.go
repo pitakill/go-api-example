@@ -3,13 +3,21 @@ package main
 import "gopkg.in/gin-gonic/gin.v1"
 
 func main() {
-	router := gin.Default()
+	r := gin.Default()
 
-	router.GET("/", func(c *gin.Context) {
+	v1 := r.Group("api/v1")
+
+	v1.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "Hola Mundo",
 		})
 	})
 
-	router.Run()
+	r.NoRoute(func(c *gin.Context) {
+		c.JSON(404, gin.H{
+			"message": "Route not found",
+		})
+	})
+
+	r.Run()
 }
