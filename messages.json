@@ -1,0 +1,12 @@
+{
+  "route": {
+    "basic": {
+      "code": 200,
+      "message": "Hola mundo"
+    },
+    "notFound": {
+      "code": 404,
+      "message": "Route not found"
+    }
+  }
+}
