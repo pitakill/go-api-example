@@ -1,23 +1,31 @@
 package main
 
-import "gopkg.in/gin-gonic/gin.v1"
+import (
+	"net/http"
+
+	"gopkg.in/gin-gonic/gin.v1"
+)
+
+func basicGetRoute(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Hola Mundo",
+	})
+}
+
+func notFoundRoute(c *gin.Context) {
+	c.JSON(http.StatusNotFound, gin.H{
+		"message": "Route not found",
+	})
+}
 
 func main() {
 	r := gin.Default()
 
 	v1 := r.Group("api/v1")
 
-	v1.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Hola Mundo",
-		})
-	})
+	v1.GET("/", basicGetRoute)
 
-	r.NoRoute(func(c *gin.Context) {
-		c.JSON(404, gin.H{
-			"message": "Route not found",
-		})
-	})
+	r.NoRoute(notFoundRoute)
 
 	r.Run()
 }
